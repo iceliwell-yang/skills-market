@@ -12,16 +12,10 @@ Linkworld 内部 WorkBuddy 技能库。**每个技能一个独立仓库**，往�
 
 | 技能 | 干什么 | 仓库 |
 |---|---|---|
-| 页面爬数助手 | 通用网页数据采集，导出 Excel/CSV/JSON | [linkworld-skill-page-scraper](https://gitee.com/liwell_yang/linkworld-skill-page-scraper) |
 | 达摩盘画像爬取 | 达摩盘人群画像分布爬取，导出 Excel | [linkworld-skill-dmp-portrait](https://gitee.com/liwell_yang/linkworld-skill-dmp-portrait) |
 | 生意参谋市场排行爬取 | 生意参谋商品榜爬取，导出 Excel | [linkworld-skill-sycm-rank](https://gitee.com/liwell_yang/linkworld-skill-sycm-rank) |
 
 ## 安装指令（直接复制粘贴给 WorkBuddy）
-
-**页面爬数助手**
-```
-帮我把这个 skill 装到我的 WorkBuddy：https://gitee.com/liwell_yang/linkworld-skill-page-scraper
-```
 
 **达摩盘画像爬取**
 ```
