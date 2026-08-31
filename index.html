@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linkworld 内部 Skill 市场</title>
+<style>
+  :root{
+    --brand:#2563eb;
+    --brand-2:#4f46e5;
+    --brand-3:#7c3aed;
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --text:#1f2329;
+    --muted:#6b7280;
+    --border:#e6e8ec;
+    --green:#16a34a;
+    --shadow-sm:0 1px 2px rgba(16,24,40,.05);
+    --shadow-md:0 8px 20px rgba(16,24,40,.10);
+    --shadow-lg:0 16px 36px rgba(16,24,40,.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--text);line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(16px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  @keyframes drift{
+    0%,100%{transform:translate(0,0) scale(1)}
+    50%{transform:translate(28px,-24px) scale(1.12)}
+  }
+  @keyframes drift2{
+    0%,100%{transform:translate(0,0) scale(1)}
+    50%{transform:translate(-30px,20px) scale(1.08)}
+  }
+  @keyframes toastIn{
+    from{opacity:0;transform:translateY(-12px) scale(.96)}
+    to{opacity:1;transform:translateY(0) scale(1)}
+  }
+
+  .reveal{opacity:0;animation:fadeUp .6s cubic-bezier(.22,.61,.36,1) forwards}
+
+  header{
+    position:relative;overflow:hidden;
+    background:linear-gradient(135deg,var(--brand),var(--brand-2) 55%,var(--brand-3));
+    color:#fff;padding:52px 24px 68px;text-align:center;
+  }
+  .blob{position:absolute;border-radius:50%;filter:blur(56px);pointer-events:none}
+  .blob.a{width:320px;height:320px;background:rgba(255,255,255,.22);top:-90px;left:-60px;animation:drift 13s ease-in-out infinite}
+  .blob.b{width:260px;height:260px;background:rgba(255,255,255,.16);bottom:-110px;right:-50px;animation:drift2 16s ease-in-out infinite}
+  .logo{
+    width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.18);
+    display:inline-flex;align-items:center;justify-content:center;
+    font-weight:600;font-size:20px;margin-bottom:14px;
+    border:1px solid rgba(255,255,255,.25);
+    animation:fadeUp .6s .05s cubic-bezier(.22,.61,.36,1) backwards;
+  }
+  header h1{font-size:28px;margin-bottom:8px;animation:fadeUp .6s .12s cubic-bezier(.22,.61,.36,1) backwards}
+  header .sub{opacity:.92;font-size:15px;max-width:620px;margin:0 auto;animation:fadeUp .6s .2s cubic-bezier(.22,.61,.36,1) backwards}
+
+  .steps{
+    position:relative;z-index:2;
+    max-width:780px;margin:-34px auto 0;padding:0 20px;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+  }
+  .step{
+    background:rgba(255,255,255,.94);backdrop-filter:blur(6px);
+    border-radius:14px;padding:18px 16px;text-align:left;
+    box-shadow:var(--shadow-md);
+    animation:fadeUp .6s cubic-bezier(.22,.61,.36,1) backwards;
+  }
+  .step .n{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:26px;height:26px;border-radius:50%;background:var(--brand);
+    color:#fff;font-weight:600;font-size:14px;margin-bottom:10px;
+  }
+  .step b{display:block;margin-bottom:3px;font-size:15px}
+  .step span{color:var(--muted);font-size:13px}
+
+  main{max-width:1080px;margin:40px auto 70px;padding:0 20px}
+  .toolbar{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    flex-wrap:wrap;margin-bottom:18px;
+  }
+  .toolbar h2{font-size:20px}
+  .toolbar .count{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:22px;height:22px;padding:0 7px;border-radius:999px;
+    background:var(--brand);color:#fff;font-size:13px;font-weight:600;margin-left:6px;
+    vertical-align:2px;
+  }
+  .search{
+    position:relative;flex:1;min-width:200px;max-width:300px;
+  }
+  .search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.45}
+  .search input{
+    width:100%;padding:10px 14px 10px 36px;font-size:14px;
+    border:1px solid var(--border);border-radius:10px;background:var(--card);
+    outline:none;transition:border-color .2s,box-shadow .2s;
+  }
+  .search input:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(37,99,235,.14)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+  .card{
+    background:var(--card);border:1px solid var(--border);border-radius:16px;
+    padding:22px;display:flex;flex-direction:column;gap:14px;
+    box-shadow:var(--shadow-sm);
+    transition:transform .28s cubic-bezier(.22,.61,.36,1),box-shadow .28s,border-color .28s;
+    cursor:default;
+  }
+  .card:hover{
+    transform:translateY(-5px);
+    box-shadow:var(--shadow-lg);
+    border-color:rgba(37,99,235,.35);
+  }
+  .card .head{display:flex;align-items:center;gap:10px}
+  .card .icon{
+    flex:none;width:38px;height:38px;border-radius:10px;
+    background:linear-gradient(135deg,var(--brand),var(--brand-2));
+    display:flex;align-items:center;justify-content:center;
+  }
+  .card .icon svg{width:19px;height:19px;stroke:#fff}
+  .card h3{font-size:17px}
+  .card .desc{color:#374151;font-size:14px;flex:1}
+  .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .tag{
+    font-size:12px;background:#eef2ff;color:#4338ca;
+    padding:3px 10px;border-radius:999px;transition:transform .15s,background .15s;
+  }
+  .tag:hover{transform:scale(1.06);background:#e0e7ff}
+  .tag.dep{background:#fef3c7;color:#92400e}
+  .btn{
+    border:none;background:var(--brand);color:#fff;padding:11px 14px;
+    border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;width:100%;
+    display:inline-flex;align-items:center;justify-content:center;gap:7px;
+    transition:background .2s,transform .12s,box-shadow .2s;
+  }
+  .btn:hover{background:var(--brand-2);box-shadow:0 6px 14px rgba(37,99,235,.28)}
+  .btn:active{transform:scale(.97)}
+  .btn.copied{background:var(--green)}
+  .btn svg{width:15px;height:15px;stroke:#fff}
+
+  .placeholder{
+    border:2px dashed var(--border);border-radius:16px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:6px;min-height:200px;color:var(--muted);text-align:center;padding:20px;
+  }
+  .placeholder .dot{
+    width:36px;height:36px;border-radius:50%;background:#eef1f5;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0}
+
+  footer{
+    text-align:center;color:var(--muted);font-size:13px;
+    padding:24px;border-top:1px solid var(--border);background:#fff;
+  }
+
+  .toast{
+    position:fixed;top:22px;right:22px;z-index:99;
+    background:#111827;color:#fff;font-size:14px;
+    padding:12px 18px;border-radius:12px;
+    display:flex;align-items:center;gap:9px;
+    box-shadow:var(--shadow-lg);
+    opacity:0;transform:translateY(-12px) scale(.96);pointer-events:none;
+    transition:opacity .25s,transform .25s;
+  }
+  .toast.show{opacity:1;transform:translateY(0) scale(1);animation:toastIn .3s cubic-bezier(.22,.61,.36,1)}
+  .toast svg{width:16px;height:16px;stroke:#4ade80}
+
+  @media(max-width:640px){
+    .steps{grid-template-columns:1fr}
+    .toolbar{flex-direction:column;align-items:stretch}
+    .search{max-width:none}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="blob a"></div>
+  <div class="blob b"></div>
+  <div class="logo">L</div>
+  <h1>Linkworld 内部 Skill 市场</h1>
+  <p class="sub">找到需要的技能，复制一句指令，粘贴给 WorkBuddy 就装好。</p>
+</header>
+
+<div class="steps">
+  <div class="step" style="animation-delay:.28s"><span class="n">1</span><b>打开货架</b><span>浏览下面的技能卡片，看它做什么、怎么触发</span></div>
+  <div class="step" style="animation-delay:.36s"><span class="n">2</span><b>复制指令</b><span>点卡片上的「复制安装指令」按钮</span></div>
+  <div class="step" style="animation-delay:.44s"><span class="n">3</span><b>粘贴安装</b><span>粘贴进 WorkBuddy 对话框，回车，装完即用</span></div>
+</div>
+
+<main>
+  <div class="toolbar">
+    <h2>可用技能<span class="count" id="count">0</span></h2>
+    <div class="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input id="search" type="text" placeholder="搜索技能或场景，如「爬数据」" aria-label="搜索技能">
+    </div>
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>Linkworld 内部使用 · 如有新技能需求请联系维护者</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+  <span>安装指令已复制，去 WorkBuddy 粘贴即可</span>
+</div>
+
+<script>
+const GITEE_BASE = "https://gitee.com/liwell_yang";
+
+const SKILLS = [
+  {
+    name: "页面爬数助手",
+    desc: "通用网页数据采集：自动做合规确认、页面结构侦察、选采集方式、翻页去重、清洗，最后导出 Excel / CSV / JSON。",
+    triggers: ["爬页面", "抓数据", "采集网页", "导出表格"],
+    repo: "linkworld-skill-page-scraper",
+    deps: []
+  },
+  {
+    name: "达摩盘画像爬取",
+    desc: "从淘宝达摩盘「画像透视」页爬取人群画像分布，导出 Excel 底表。内置完整应用，支持网页表单 + agent 代跑。",
+    triggers: ["爬达摩盘画像", "达摩盘人群画像", "画像标签分布"],
+    repo: "linkworld-skill-dmp-portrait",
+    deps: []
+  },
+  {
+    name: "生意参谋市场排行爬取",
+    desc: "爬取淘宝生意参谋「市场排行（商品榜）」数据，按类目 + 时间 + 店铺类型抓全量，导出 Excel。",
+    triggers: ["爬生意参谋榜单", "生意参谋市场排行", "商品榜"],
+    repo: "linkworld-skill-sycm-rank",
+    deps: []
+  }
+];
+
+const grid = document.getElementById("grid");
+const searchInput = document.getElementById("search");
+const countEl = document.getElementById("count");
+const toast = document.getElementById("toast");
+
+const checkIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+const scrapeIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l6-6-6-6"/><path d="M12 19h8"/></svg>';
+
+function installText(s){
+  return `帮我把这个 skill 装到我的 WorkBuddy：${GITEE_BASE}/${s.repo}`;
+}
+
+function buildCard(s, i){
+  const card = document.createElement("div");
+  card.className = "card reveal";
+  card.style.animationDelay = (0.35 + i * 0.06) + "s";
+
+  const tags = s.triggers.map(t=>`<span class="tag">${t}</span>`).join("");
+  const deps = s.deps.length ? s.deps.map(d=>`<span class="tag dep">依赖 ${d}</span>`).join("") : "";
+
+  card.innerHTML = `
+    <div class="head">
+      <div class="icon">${scrapeIcon}</div>
+      <h3>${s.name}</h3>
+    </div>
+    <div class="desc">${s.desc}</div>
+    <div class="tags">${tags}${deps}</div>
+    <button class="btn" aria-label="复制 ${s.name} 的安装指令">复制安装指令</button>
+  `;
+
+  const btn = card.querySelector(".btn");
+  btn.addEventListener("click", function(){ copyInstall(this, s); });
+  return card;
+}
+
+function buildPlaceholder(){
+  const p = document.createElement("div");
+  p.className = "placeholder reveal";
+  p.innerHTML = `
+    <div class="dot">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+    </div>
+    <span>新技能即将上线</span>
+  `;
+  return p;
+}
+
+function buildEmpty(){
+  const e = document.createElement("div");
+  e.className = "empty";
+  e.textContent = "没有找到匹配的技能";
+  return e;
+}
+
+function copyInstall(btn, s){
+  const text = installText(s);
+  const done = () => { flash(btn); showToast(); };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(()=>fallbackCopy(text, done));
+  } else {
+    fallbackCopy(text, done);
+  }
+}
+
+function fallbackCopy(text, done){
+  const ta = document.createElement("textarea");
+  ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand("copy"); done(); }
+  catch(e){ alert("复制失败，请手动复制：\n" + text); }
+  document.body.removeChild(ta);
+}
+
+function flash(btn){
+  const old = btn.innerHTML;
+  btn.innerHTML = checkIcon + "已复制，去 WorkBuddy 粘贴";
+  btn.classList.add("copied");
+  setTimeout(()=>{ btn.innerHTML = old; btn.classList.remove("copied"); }, 2000);
+}
+
+let toastTimer = null;
+function showToast(){
+  toast.classList.add("show");
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>toast.classList.remove("show"), 2000);
+}
+
+function render(){
+  const kw = searchInput.value.trim().toLowerCase();
+  const filtered = SKILLS.filter(s =>
+    s.name.toLowerCase().includes(kw) ||
+    s.desc.toLowerCase().includes(kw) ||
+    s.triggers.some(t=>t.toLowerCase().includes(kw))
+  );
+
+  grid.innerHTML = "";
+  filtered.forEach((s,i)=>grid.appendChild(buildCard(s, i)));
+  countEl.textContent = filtered.length;
+
+  if (!kw) {
+    grid.appendChild(buildPlaceholder());
+  } else if (filtered.length === 0) {
+    grid.appendChild(buildEmpty());
+  }
+}
+
+searchInput.addEventListener("input", render);
+
+function countUp(target){
+  let n = 0;
+  const step = Math.max(1, Math.round(target / 20));
+  const timer = setInterval(()=>{
+    n = Math.min(target, n + step);
+    countEl.textContent = n;
+    if (n >= target) clearInterval(timer);
+  }, 30);
+}
+
+render();
+countUp(SKILLS.length);
+</script>
+</body>
+</html>
