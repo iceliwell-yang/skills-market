@@ -459,17 +459,6 @@
   <span>安装指令已复制，去 WorkBuddy 粘贴即可</span>
 </div>
 
-<div class="doc-modal" id="doc-modal">
-  <div class="doc-modal-mask" id="doc-modal-mask"></div>
-  <div class="doc-modal-box">
-    <div class="doc-modal-head">
-      <span class="doc-modal-title" id="doc-modal-title">📖 使用文档</span>
-      <button class="doc-modal-close" id="doc-modal-close" aria-label="关闭">✕</button>
-    </div>
-    <div class="doc-modal-body doc-content" id="doc-modal-body"><span class="doc-loading">文档加载中…</span></div>
-  </div>
-</div>
-
 <script>
 const GITEE_BASE = "https://gitee.com/liwell_yang";
 const GITEE_OWNER = "liwell_yang";
@@ -659,42 +648,8 @@ function openDetail(s){
       <button class="btn btn-doc" id="doc-btn">📖 查看使用文档</button>
     </div>`;
   detailBody.querySelector("#copy-btn").addEventListener("click",function(){copyInstall(this,s);});
-  detailBody.querySelector("#doc-btn").addEventListener("click",function(){openDocModal(s);});
+  detailBody.querySelector("#doc-btn").addEventListener("click",function(){window.open('doc.html?id='+s.id,'_blank','noopener');});
   viewList.classList.add("hidden");viewDetail.classList.remove("hidden");window.scrollTo({top:0});
-}
-
-const docModal=document.getElementById("doc-modal");
-const docModalBody=document.getElementById("doc-modal-body");
-const docModalTitle=document.getElementById("doc-modal-title");
-
-function openDocModal(s){
-  docModalTitle.textContent='📖 '+s.name+' · 使用文档';
-  docModalBody.innerHTML='<span class="doc-loading">文档加载中…</span>';
-  docModal.classList.add("open");
-  document.body.style.overflow='hidden';
-  loadDoc(s);
-}
-function closeDocModal(){
-  docModal.classList.remove("open");
-  document.body.style.overflow='';
-}
-document.getElementById("doc-modal-close").addEventListener("click",closeDocModal);
-document.getElementById("doc-modal-mask").addEventListener("click",closeDocModal);
-addEventListener("keydown",e=>{ if(e.key==="Escape")closeDocModal(); });
-
-async function loadDoc(s){
-  const docEl=docModalBody;
-  if(!docEl)return;
-  try{
-    const res=await fetch('docs/'+s.id+'.md');
-    if(!res.ok)throw new Error('HTTP '+res.status);
-    let md=await res.text();
-    md=md.replace(/\]\(images\//g,'](images/'+s.id+'/');
-    docEl.innerHTML = (window.marked ? marked.parse(md) : '<pre>'+md.replace(/</g,'&lt;')+'</pre>');
-    docEl.querySelectorAll('img').forEach(img=>{ img.loading='lazy'; });
-  }catch(e){
-    docEl.innerHTML='<p>使用文档加载失败，请 <a href="'+GITEE_BASE+'/'+s.repo+'/blob/main/'+encodeURIComponent(s.doc)+'" target="_blank" rel="noopener">在 Gitee 查看</a></p>';
-  }
 }
 backBtn.addEventListener("click",()=>{viewDetail.classList.add("hidden");viewList.classList.remove("hidden");window.scrollTo({top:0});});
 
