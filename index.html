@@ -222,6 +222,14 @@
   .card .meta .ver{color:var(--brand-3);font-weight:600}
   .card .meta .sep{opacity:.45}
   .card .meta .time{color:var(--muted)}
+  .card .meta .doc-link{
+    margin-left:auto;display:inline-flex;align-items:center;
+    color:#4ade80;font-size:12px;font-weight:600;text-decoration:none;
+    padding:4px 12px;border:1px solid color-mix(in srgb,#16a34a 35%,transparent);
+    border-radius:999px;background:color-mix(in srgb,#16a34a 12%,transparent);
+    transition:all .2s;
+  }
+  .card .meta .doc-link:hover{background:color-mix(in srgb,#16a34a 22%,transparent);border-color:#22c55e}
   .detail-meta{
     display:flex;align-items:center;gap:10px;flex-wrap:wrap;
     margin:-6px 0 22px;font-size:12px;color:var(--muted);
@@ -607,7 +615,7 @@ function buildCard(s,i){
         复制安装指令
       </button>
     </div>
-    <div class="meta" data-meta="${s.id}"><span class="time">加载中…</span></div>
+    <div class="meta" data-meta="${s.id}"><span class="time">加载中…</span><a class="doc-link" href="doc.html?id=${s.id}" target="_blank" rel="noopener">📖 使用文档</a></div>
     <a class="author" href="${AUTHOR.url}" target="_blank" rel="noopener">
       <img class="avatar" src="${AUTHOR.avatar}" alt="${AUTHOR.name}">
       <span class="name">${AUTHOR.name}</span>
@@ -616,6 +624,7 @@ function buildCard(s,i){
   c.addEventListener("mousemove",e=>{const r=c.getBoundingClientRect();c.style.setProperty("--mx",(e.clientX-r.left)+"px");c.style.setProperty("--my",(e.clientY-r.top)+"px");});
   c.addEventListener("click",()=>openDetail(s));
   c.querySelector(".mini-btn").addEventListener("click",e=>{e.stopPropagation();copyInstall(c.querySelector(".mini-btn"),s);});
+  c.querySelector(".doc-link").addEventListener("click",e=>e.stopPropagation());
   c.querySelector(".author").addEventListener("click",e=>e.stopPropagation());
   return c;
 }
@@ -643,12 +652,8 @@ function openDetail(s){
         <div><div class="lbl">${s.repo}</div><div class="url">${GITEE_BASE}/${s.repo}</div></div>
         <span class="go">打开 ↗</span>
       </a></div></div>
-    <div class="panel" style="animation-delay:.33s">
-      <button class="btn" id="copy-btn">复制安装指令</button>
-      <button class="btn btn-doc" id="doc-btn">📖 查看使用文档</button>
-    </div>`;
+    <div class="panel" style="animation-delay:.33s"><button class="btn" id="copy-btn">复制安装指令</button></div>`;
   detailBody.querySelector("#copy-btn").addEventListener("click",function(){copyInstall(this,s);});
-  detailBody.querySelector("#doc-btn").addEventListener("click",function(){window.open('doc.html?id='+s.id,'_blank','noopener');});
   viewList.classList.add("hidden");viewDetail.classList.remove("hidden");window.scrollTo({top:0});
 }
 backBtn.addEventListener("click",()=>{viewDetail.classList.add("hidden");viewList.classList.remove("hidden");window.scrollTo({top:0});});
