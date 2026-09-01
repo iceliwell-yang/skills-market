@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>使用文档 · Linkworld Skill</title>
+<script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
+<style>
+  :root{
+    --bg:#070b14;
+    --card:rgba(255,255,255,.045);
+    --card-border:rgba(255,255,255,.10);
+    --text:#e8ecf6;
+    --muted:#8b96b0;
+    --brand:#4f7cff;
+    --brand-2:#7c5cff;
+    --brand-3:#a855f7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; line-height: 1.7; }
+  .topbar{
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 24px; background: rgba(7,11,20,.85);
+    border-bottom: 1px solid var(--card-border); backdrop-filter: blur(10px);
+  }
+  .back-btn{
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--muted); text-decoration: none; font-size: 14px;
+    padding: 7px 14px; border: 1px solid var(--card-border); border-radius: 9px;
+    background: var(--card); transition: all .2s; cursor: pointer;
+  }
+  .back-btn:hover { color: var(--text); border-color: var(--brand); }
+  .topbar h1 { font-size: 17px; font-weight: 600; }
+  .topbar .sub { font-size: 13px; color: var(--muted); }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 28px 24px 80px; }
+
+  /* 文档渲染 */
+  .doc { font-size: 14px; line-height: 1.75; color: var(--muted); }
+  .doc h1,.doc h2,.doc h3,.doc h4 { color: var(--text); font-weight: 600; margin: 24px 0 10px; line-height: 1.4; }
+  .doc h1 { font-size: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--card-border); }
+  .doc h2 { font-size: 20px; }
+  .doc h3 { font-size: 17px; }
+  .doc h4 { font-size: 15px; color: var(--brand); }
+  .doc p { margin: 9px 0; }
+  .doc ul,.doc ol { padding-left: 22px; margin: 9px 0; }
+  .doc li { margin: 5px 0; }
+  .doc table { border-collapse: collapse; margin: 14px 0; width: 100%; font-size: 13px; }
+  .doc th,.doc td { border: 1px solid var(--card-border); padding: 8px 12px; text-align: left; vertical-align: top; }
+  .doc th { background: color-mix(in srgb, var(--brand) 14%, transparent); color: var(--text); font-weight: 600; }
+  .doc img { max-width: 100%; border-radius: 10px; border: 1px solid var(--card-border); margin: 10px 0; display: block; }
+  .doc code { background: color-mix(in srgb, var(--brand) 16%, transparent); padding: 2px 6px; border-radius: 4px; font-family: Consolas, "Courier New", monospace; font-size: 13px; color: var(--text); }
+  .doc pre { background: #0b1120; border: 1px solid var(--card-border); padding: 14px 16px; border-radius: 10px; overflow-x: auto; margin: 12px 0; line-height: 1.6; }
+  .doc pre code { background: none; padding: 0; color: #e2e8f0; }
+  .doc blockquote { border-left: 3px solid var(--brand); padding: 8px 14px; margin: 12px 0; background: color-mix(in srgb, var(--brand) 8%, transparent); border-radius: 6px; }
+  .doc blockquote p { margin: 0; }
+  .doc a { color: var(--brand); text-decoration: none; }
+  .doc a:hover { text-decoration: underline; }
+  .doc hr { border: none; border-top: 1px solid var(--card-border); margin: 22px 0; }
+  .loading { color: var(--muted); font-size: 14px; padding: 20px 0; }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <a class="back-btn" onclick="history.length>1?history.back():location.href='index.html'">← 返回</a>
+    <div>
+      <h1 id="doc-title">使用文档</h1>
+      <div class="sub" id="doc-sub">加载中…</div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="doc" id="doc-body"><span class="loading">文档加载中…</span></div>
+  </div>
+
+<script>
+const NAMES = { dmp:'达摩盘画像爬取', sycm:'生意参谋市场排行爬取' };
+const REPOS = { dmp:'linkworld-skill-dmp-portrait', sycm:'linkworld-skill-sycm-rank' };
+const params = new URLSearchParams(location.search);
+const id = params.get('id') || 'dmp';
+const name = NAMES[id] || '使用文档';
+
+document.title = name + ' · 使用文档';
+document.getElementById('doc-title').textContent = name;
+document.getElementById('doc-sub').textContent = '使用文档 · 操作步骤 / 界面截图 / 取数位置 / 举例';
+
+(async function(){
+  const body = document.getElementById('doc-body');
+  try{
+    const res = await fetch('docs/' + id + '.md');
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    let md = await res.text();
+    md = md.replace(/\]\(images\//g, '](images/' + id + '/');
+    body.innerHTML = window.marked ? marked.parse(md) : '<pre>' + md.replace(/</g,'&lt;') + '</pre>';
+    body.querySelectorAll('img').forEach(img => { img.loading = 'lazy'; });
+  }catch(e){
+    body.innerHTML = '<p>使用文档加载失败（' + e.message + '）。可到 Gitee 仓库查看：<a href="https://gitee.com/liwell_yang/' + (REPOS[id]||'') + '" target="_blank">' + (REPOS[id]||'') + '</a></p>';
+  }
+})();
+</script>
+</body>
+</html>
