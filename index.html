@@ -674,11 +674,9 @@ function buildCard(s,i){
     <div class="sprite" aria-hidden="true"></div>`;
   const sp=c.querySelector(".sprite");
   sp.innerHTML=SPRITES[Math.floor(Math.random()*SPRITES.length)];
-  const corner=Math.floor(Math.random()*4);
+  const corner=Math.random()<0.5?0:2;
   if(corner===0){sp.style.top="-26px";sp.style.right="-26px";sp.style.transformOrigin="bottom left";}
-  else if(corner===1){sp.style.top="-26px";sp.style.left="-26px";sp.style.transformOrigin="bottom right";}
-  else if(corner===2){sp.style.bottom="-26px";sp.style.right="-26px";sp.style.transformOrigin="top left";}
-  else{sp.style.bottom="-26px";sp.style.left="-26px";sp.style.transformOrigin="top right";}
+  else{sp.style.bottom="-26px";sp.style.right="-26px";sp.style.transformOrigin="top left";}
   c.addEventListener("mousemove",e=>{const r=c.getBoundingClientRect();c.style.setProperty("--mx",(e.clientX-r.left)+"px");c.style.setProperty("--my",(e.clientY-r.top)+"px");});
   c.addEventListener("click",()=>openDetail(s));
   c.querySelector(".mini-btn").addEventListener("click",e=>{e.stopPropagation();copyInstall(c.querySelector(".mini-btn"),s);});
