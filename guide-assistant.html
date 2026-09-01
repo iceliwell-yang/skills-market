@@ -27,6 +27,11 @@
   .step li{margin:4px 0}
   .step img{display:block;width:100%;max-width:720px;height:auto;margin:14px auto 0;border-radius:12px;border:1px solid var(--card-border);box-shadow:0 8px 24px rgba(0,0,0,.35)}
   .tip{margin-top:12px;padding:10px 14px;background:color-mix(in srgb,#16a34a 10%,transparent);border:1px solid color-mix(in srgb,#16a34a 28%,transparent);border-radius:8px;font-size:13px;color:#7bd88f}
+  .step img{cursor:zoom-in}
+  .lightbox{position:fixed;inset:0;z-index:200;background:rgba(3,6,15,.88);display:none;align-items:center;justify-content:center;cursor:zoom-out;backdrop-filter:blur(4px)}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:92vw;max-height:92vh;border-radius:10px;box-shadow:0 24px 70px rgba(0,0,0,.6);border:1px solid var(--card-border)}
+  .lightbox .lb-hint{position:absolute;top:18px;right:24px;color:#fff;font-size:13px;opacity:.6}
 </style>
 </head>
 <body>
@@ -61,5 +66,16 @@
       <div class="tip">💡 首次连接时若弹出「允许完全访问」，确认授权即可（这是远程通道正常工作的必要权限）。</div>
     </div>
   </div>
+<div class="lightbox" id="lightbox"><img id="lightbox-img" src="" alt=""><span class="lb-hint">✕ 点击任意处关闭</span></div>
+<script>
+(function(){
+  var lb=document.getElementById('lightbox'),lbImg=document.getElementById('lightbox-img');
+  document.querySelectorAll('.step img').forEach(function(img){
+    img.addEventListener('click',function(){lbImg.src=img.src;lb.classList.add('open');});
+  });
+  lb.addEventListener('click',function(){lb.classList.remove('open');});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.classList.remove('open');});
+})();
+</script>
 </body>
 </html>
