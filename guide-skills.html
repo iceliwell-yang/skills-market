@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>已装技能库 · 新手指南</title>
+<style>
+  :root{--bg:#070b14;--card:rgba(255,255,255,.045);--card-border:rgba(255,255,255,.10);--text:#e8ecf6;--muted:#8b96b0;--brand:#4f7cff;--brand-2:#7c5cff;--brand-3:#a855f7}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.7}
+  .topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:14px;padding:14px 24px;background:rgba(7,11,20,.85);border-bottom:1px solid var(--card-border);backdrop-filter:blur(10px)}
+  .back-btn{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:14px;padding:7px 14px;border:1px solid var(--card-border);border-radius:9px;background:var(--card);transition:all .2s;cursor:pointer}
+  .back-btn:hover{color:var(--text);border-color:var(--brand)}
+  .topbar h1{font-size:17px;font-weight:600}
+  .topbar .sub{font-size:13px;color:var(--muted)}
+  .wrap{max-width:860px;margin:0 auto;padding:28px 24px 80px}
+  .hero{background:linear-gradient(135deg,color-mix(in srgb,var(--brand) 18%,transparent),color-mix(in srgb,var(--brand-2) 12%,transparent));border:1px solid color-mix(in srgb,var(--brand) 30%,transparent);border-radius:16px;padding:26px;margin-bottom:26px}
+  .hero h2{font-size:22px;margin-bottom:8px}
+  .hero p{color:var(--muted);font-size:14px}
+  .step{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:24px;margin-bottom:22px}
+  .step-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+  .step-num{flex:none;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+  .step-title{font-size:17px;font-weight:600;margin-bottom:3px}
+  .step-desc{color:var(--muted);font-size:14px}
+  .step-desc b{color:var(--text)}
+  .step ul{padding-left:20px;margin:8px 0;color:var(--muted);font-size:14px}
+  .step li{margin:4px 0}
+  .step code{background:color-mix(in srgb,var(--brand) 16%,transparent);padding:2px 6px;border-radius:4px;font-family:Consolas,monospace;font-size:13px;color:var(--text)}
+  .step img{display:block;width:100%;max-width:720px;height:auto;margin:14px auto 0;border-radius:12px;border:1px solid var(--card-border);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+  .tip{margin-top:12px;padding:10px 14px;background:color-mix(in srgb,#16a34a 10%,transparent);border:1px solid color-mix(in srgb,#16a34a 28%,transparent);border-radius:8px;font-size:13px;color:#7bd88f}
+  .way{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;margin-right:8px;background:color-mix(in srgb,var(--brand-3) 20%,transparent);color:#d8b4fe}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <a class="back-btn" onclick="history.length>1?history.back():location.href='index.html'">← 返回</a>
+    <div><h1>已装技能库</h1><div class="sub">查看、添加自定义技能（Skill）</div></div>
+  </div>
+  <div class="wrap">
+    <div class="hero">
+      <h2>给 WorkBuddy 加装技能</h2>
+      <p>技能（Skill）是 WorkBuddy 的专用能力包，装一个就多一项本事（爬数据、写文档、做分析……）。这篇教你查看已装技能，以及两种添加方式。</p>
+    </div>
+
+    <div class="step">
+      <div class="step-head"><div class="step-num">1</div><div><div class="step-title">进入技能库</div><div class="step-desc">点击侧边栏 <b>「专家·技能·连接器」</b>，切到 <b>「技能」</b> 标签页。这里能看到「我安装的」「精选技能」「SkillHub」等分区。</div></div></div>
+      <img src="guide_imgs/skills/image1.png" alt="技能库首页">
+    </div>
+
+    <div class="step">
+      <div class="step-head"><div class="step-num">2</div><div><div class="step-title">查看「我安装的」技能</div><div class="step-desc">点顶部 <b>「我安装的」</b>，列出你已装的全部技能及说明（可用搜索框快速定位，右上角「批量管理」可批量操作）。</div></div></div>
+      <img src="guide_imgs/skills/image2.png" alt="我安装的技能">
+    </div>
+
+    <div class="step">
+      <div class="step-head"><div class="step-num">3</div><div><div class="step-title">添加技能</div><div class="step-desc">点右上角 <b>「+ 添加技能」</b>，弹出三个入口：<b>查找技能</b>（从技能市场搜）、<b>上传技能</b>（导入本地包）、<b>创建技能</b>（自己写）。</div></div></div>
+      <img src="guide_imgs/skills/image3.png" alt="添加技能入口">
+    </div>
+
+    <div class="step">
+      <div class="step-head"><div class="step-num">4</div><div><div class="step-title"><span class="way">方式一</span>拖动 skill 文件夹包</div><div class="step-desc">选「上传技能」后，把技能 <b>文件夹或 .zip 包拖进上传区</b>（或点击上传）。注意文件要求：</div></div></div>
+      <ul>
+        <li>文件夹 / .zip 里需要包含 <code>SKILL.md</code> 文件；</li>
+        <li><code>SKILL.md</code> 需含 YAML 格式的技能名称和描述。</li>
+      </ul>
+      <img src="guide_imgs/skills/image4.png" alt="上传技能-拖拽文件夹包">
+    </div>
+
+    <div class="step">
+      <div class="step-head"><div class="step-num">5</div><div><div class="step-title"><span class="way">方式二</span>复制口令，粘贴对话框</div><div class="step-desc">把「安装口令」直接发给 WorkBuddy，它会自动下载、做安全审查并装好。口令格式：</div></div></div>
+      <ul>
+        <li>帮我把这个 skill 装到我的 WorkBuddy：<code>https://gitee.com/...</code></li>
+      </ul>
+      <div class="step-desc" style="margin-top:6px">粘贴发送后，WorkBuddy 会返回安装结果（含技能名称、安装位置、安全审查结论）。</div>
+      <img src="guide_imgs/skills/image5.png" alt="复制口令安装技能">
+    </div>
+  </div>
+</body>
+</html>
