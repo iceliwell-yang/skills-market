@@ -58,6 +58,11 @@
   .doc a:hover { text-decoration: underline; }
   .doc hr { border: none; border-top: 1px solid var(--card-border); margin: 22px 0; }
   .loading { color: var(--muted); font-size: 14px; padding: 20px 0; }
+  .doc img { cursor: zoom-in; }
+  .lightbox{position:fixed;inset:0;z-index:200;background:rgba(3,6,15,.88);display:none;align-items:center;justify-content:center;cursor:zoom-out;backdrop-filter:blur(4px)}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:92vw;max-height:92vh;border-radius:10px;box-shadow:0 24px 70px rgba(0,0,0,.6);border:1px solid var(--card-border)}
+  .lightbox .lb-hint{position:absolute;top:18px;right:24px;color:#fff;font-size:13px;opacity:.6}
 </style>
 </head>
 <body>
@@ -71,6 +76,8 @@
   <div class="wrap">
     <div class="doc" id="doc-body"><span class="loading">文档加载中…</span></div>
   </div>
+
+<div class="lightbox" id="lightbox"><img id="lightbox-img" src="" alt=""><span class="lb-hint">✕ 点击任意处关闭</span></div>
 
 <script>
 const NAMES = { dmp:'达摩盘画像爬取', sycm:'生意参谋市场排行爬取' };
@@ -95,6 +102,16 @@ document.getElementById('doc-sub').textContent = '使用文档 · 操作步骤 /
   }catch(e){
     body.innerHTML = '<p>使用文档加载失败（' + e.message + '）。可到 Gitee 仓库查看：<a href="https://gitee.com/liwell_yang/' + (REPOS[id]||'') + '" target="_blank">' + (REPOS[id]||'') + '</a></p>';
   }
+})();
+
+// 图片点击放大（事件委托，适配异步渲染的文档图片）
+(function(){
+  var lb=document.getElementById('lightbox'),lbImg=document.getElementById('lightbox-img');
+  document.getElementById('doc-body').addEventListener('click',function(e){
+    if(e.target.tagName==='IMG'){lbImg.src=e.target.src;lb.classList.add('open');}
+  });
+  lb.addEventListener('click',function(){lb.classList.remove('open');});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.classList.remove('open');});
 })();
 </script>
 </body>
