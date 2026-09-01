@@ -175,7 +175,7 @@
   .card{
     position:relative;background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);
     padding:26px;display:flex;flex-direction:column;gap:16px;cursor:pointer;
-    backdrop-filter:blur(10px);overflow:hidden;
+    backdrop-filter:blur(10px);
     transition:transform .3s cubic-bezier(.22,.61,.36,1),border-color .3s,box-shadow .3s;
   }
   .card::before{
@@ -386,12 +386,12 @@
 
   /* 可爱精灵 */
   .sprite{
-    position:absolute;top:12px;right:12px;
-    width:74px;height:74px;z-index:4;
-    opacity:0;transform:scale(0) translateY(-14px) rotate(-10deg);
+    position:absolute;z-index:4;
+    width:82px;height:82px;
+    opacity:0;transform:scale(0);
     transform-origin:center;pointer-events:none;
     transition:opacity .28s ease,transform .5s cubic-bezier(.34,1.56,.64,1);
-    filter:drop-shadow(0 10px 20px rgba(0,0,0,.42));
+    filter:drop-shadow(0 8px 18px rgba(0,0,0,.4));
   }
   .card:hover .sprite{opacity:1;transform:scale(1) translateY(0) rotate(0)}
   .sprite svg{display:block;width:100%;height:100%;overflow:visible}
@@ -640,13 +640,13 @@ const backBtn=document.getElementById("back");
 const toast=document.getElementById("toast");
 const checkIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
 
-const SPRITE_COLORS=[
-  {b:'#5b9dff',c:'#2c6fd4'},
-  {b:'#a678ff',c:'#6d3fd4'},
-  {b:'#ff7ab8',c:'#d43380'},
-  {b:'#57d98a',c:'#239a52'},
-  {b:'#ffa64d',c:'#d47616'},
-  {b:'#4dd9d2',c:'#14948c'}
+const SPRITES=[
+  // 0 雷伊风（金色电系 · 闪电天线）
+  '<svg viewBox="0 0 96 96"><path d="M50 22 L44 12 L54 12 L48 4" fill="none" stroke="#ffd54a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="48" cy="56" rx="30" ry="28" fill="#ffc93c"/><ellipse cx="35" cy="42" rx="11" ry="8" fill="rgba(255,255,255,.5)" transform="rotate(-22 35 42)"/><ellipse cx="17" cy="63" rx="10" ry="7" fill="#e0a200" transform="rotate(-28 17 63)"/><ellipse cx="79" cy="63" rx="10" ry="7" fill="#e0a200" transform="rotate(28 79 63)"/><rect x="29" y="60" width="38" height="26" rx="5" fill="#fff" stroke="#e0a200" stroke-width="1.5"/><text x="48" y="77" text-anchor="middle" font-size="13" fill="#e0a200">⚡</text><g class="sprite-eye"><ellipse cx="36" cy="49" rx="6" ry="7" fill="#fff"/><circle cx="37" cy="50" r="3" fill="#23262f"/></g><g class="sprite-eye"><ellipse cx="60" cy="49" rx="6" ry="7" fill="#fff"/><circle cx="61" cy="50" r="3" fill="#23262f"/></g><ellipse cx="27" cy="60" rx="5.5" ry="3.5" fill="rgba(255,140,60,.45)"/><ellipse cx="69" cy="60" rx="5.5" ry="3.5" fill="rgba(255,140,60,.45)"/><path d="M42 57 Q48 62 54 57" stroke="#23262f" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
+  // 1 盖亚风（红色格斗 · 头顶尖刺 + 粗眉）
+  '<svg viewBox="0 0 96 96"><path d="M40 22 L40 12 M48 20 L48 8 M56 22 L56 12" stroke="#ff4d4d" stroke-width="3" stroke-linecap="round"/><ellipse cx="48" cy="56" rx="30" ry="28" fill="#ff5252"/><ellipse cx="35" cy="42" rx="11" ry="8" fill="rgba(255,255,255,.35)" transform="rotate(-22 35 42)"/><ellipse cx="17" cy="63" rx="10" ry="7" fill="#c62828" transform="rotate(-28 17 63)"/><ellipse cx="79" cy="63" rx="10" ry="7" fill="#c62828" transform="rotate(28 79 63)"/><rect x="29" y="60" width="38" height="26" rx="5" fill="#fff" stroke="#c62828" stroke-width="1.5"/><text x="48" y="77" text-anchor="middle" font-size="13" fill="#c62828">👊</text><g class="sprite-eye"><ellipse cx="36" cy="48" rx="6" ry="6.5" fill="#fff"/><circle cx="37" cy="49" r="3" fill="#23262f"/><path d="M30 43 L42 46" stroke="#23262f" stroke-width="2.5" stroke-linecap="round"/></g><g class="sprite-eye"><ellipse cx="60" cy="48" rx="6" ry="6.5" fill="#fff"/><circle cx="61" cy="49" r="3" fill="#23262f"/><path d="M66 43 L54 46" stroke="#23262f" stroke-width="2.5" stroke-linecap="round"/></g><ellipse cx="27" cy="59" rx="5.5" ry="3.5" fill="rgba(255,120,120,.4)"/><ellipse cx="69" cy="59" rx="5.5" ry="3.5" fill="rgba(255,120,120,.4)"/><path d="M42 56 Q48 61 54 56" stroke="#23262f" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
+  // 2 卡修斯风（白金光明 · 头顶光环）
+  '<svg viewBox="0 0 96 96"><ellipse cx="48" cy="14" rx="16" ry="5" fill="none" stroke="#ffd97a" stroke-width="3"/><ellipse cx="48" cy="56" rx="30" ry="28" fill="#fff3d6"/><ellipse cx="35" cy="42" rx="11" ry="8" fill="rgba(255,255,255,.9)" transform="rotate(-22 35 42)"/><ellipse cx="17" cy="63" rx="10" ry="7" fill="#e0c48a" transform="rotate(-28 17 63)"/><ellipse cx="79" cy="63" rx="10" ry="7" fill="#e0c48a" transform="rotate(28 79 63)"/><rect x="29" y="60" width="38" height="26" rx="5" fill="#fff" stroke="#e0c48a" stroke-width="1.5"/><text x="48" y="77" text-anchor="middle" font-size="13" fill="#d4a017">⭐</text><g class="sprite-eye"><ellipse cx="36" cy="49" rx="6.5" ry="7.5" fill="#fff"/><circle cx="37" cy="50" r="3" fill="#23262f"/></g><g class="sprite-eye"><ellipse cx="60" cy="49" rx="6.5" ry="7.5" fill="#fff"/><circle cx="61" cy="50" r="3" fill="#23262f"/></g><ellipse cx="27" cy="60" rx="5.5" ry="3.5" fill="rgba(255,180,120,.4)"/><ellipse cx="69" cy="60" rx="5.5" ry="3.5" fill="rgba(255,180,120,.4)"/><path d="M42 57 Q48 62 54 57" stroke="#23262f" stroke-width="2" fill="none" stroke-linecap="round"/></svg>'
 ];
 
 function installText(s){return `帮我把这个 skill 装到我的 WorkBuddy：${GITEE_BASE}/${s.repo}`;}
@@ -671,28 +671,14 @@ function buildCard(s,i){
       <span class="name">${AUTHOR.name}</span>
       <span class="role">技能缔造者</span>
     </a>
-    <div class="sprite" aria-hidden="true">
-      <svg viewBox="0 0 96 96">
-        <line x1="48" y1="22" x2="48" y2="11" stroke="var(--sp-c)" stroke-width="2.5" stroke-linecap="round"/>
-        <circle cx="48" cy="9" r="4.5" fill="var(--sp-b)"/>
-        <ellipse cx="48" cy="54" rx="30" ry="28" fill="var(--sp-b)"/>
-        <ellipse cx="35" cy="40" rx="11" ry="8" fill="rgba(255,255,255,.32)" transform="rotate(-22 35 40)"/>
-        <ellipse cx="17" cy="61" rx="10" ry="7" fill="var(--sp-c)" transform="rotate(-28 17 61)"/>
-        <ellipse cx="79" cy="61" rx="10" ry="7" fill="var(--sp-c)" transform="rotate(28 79 61)"/>
-        <rect x="29" y="58" width="38" height="26" rx="5" fill="#fff" stroke="var(--sp-c)" stroke-width="1.5"/>
-        <text x="48" y="74" text-anchor="middle" font-size="9" font-weight="800" fill="var(--sp-c)" font-family="sans-serif">SKILL</text>
-        <g class="sprite-eye"><ellipse cx="36" cy="47" rx="6.5" ry="7.5" fill="#fff"/><circle cx="37" cy="48" r="3.2" fill="#23262f"/><circle cx="38.2" cy="46" r="1.3" fill="#fff"/></g>
-        <g class="sprite-eye"><ellipse cx="60" cy="47" rx="6.5" ry="7.5" fill="#fff"/><circle cx="61" cy="48" r="3.2" fill="#23262f"/><circle cx="62.2" cy="46" r="1.3" fill="#fff"/></g>
-        <ellipse cx="27" cy="58" rx="5.5" ry="3.5" fill="rgba(255,120,140,.45)"/>
-        <ellipse cx="69" cy="58" rx="5.5" ry="3.5" fill="rgba(255,120,140,.45)"/>
-        <path d="M42 55 Q48 60 54 55" stroke="#23262f" stroke-width="2" fill="none" stroke-linecap="round"/>
-      </svg>
-    </div>`;
+    <div class="sprite" aria-hidden="true"></div>`;
   const sp=c.querySelector(".sprite");
-  const col=SPRITE_COLORS[Math.floor(Math.random()*SPRITE_COLORS.length)];
-  sp.style.setProperty("--sp-b",col.b);
-  sp.style.setProperty("--sp-c",col.c);
-  if(Math.random()<0.5){sp.style.left="12px";sp.style.right="auto";}
+  sp.innerHTML=SPRITES[Math.floor(Math.random()*SPRITES.length)];
+  const corner=Math.floor(Math.random()*4);
+  if(corner===0){sp.style.top="-26px";sp.style.right="-26px";sp.style.transformOrigin="bottom left";}
+  else if(corner===1){sp.style.top="-26px";sp.style.left="-26px";sp.style.transformOrigin="bottom right";}
+  else if(corner===2){sp.style.bottom="-26px";sp.style.right="-26px";sp.style.transformOrigin="top left";}
+  else{sp.style.bottom="-26px";sp.style.left="-26px";sp.style.transformOrigin="top right";}
   c.addEventListener("mousemove",e=>{const r=c.getBoundingClientRect();c.style.setProperty("--mx",(e.clientX-r.left)+"px");c.style.setProperty("--my",(e.clientY-r.top)+"px");});
   c.addEventListener("click",()=>openDetail(s));
   c.querySelector(".mini-btn").addEventListener("click",e=>{e.stopPropagation();copyInstall(c.querySelector(".mini-btn"),s);});
