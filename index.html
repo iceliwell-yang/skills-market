@@ -232,8 +232,13 @@
   .card .meta .doc-link:hover{background:color-mix(in srgb,#16a34a 22%,transparent);border-color:#22c55e}
   .detail-meta{
     display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-    margin:-6px 0 22px;font-size:12px;color:var(--muted);
+    font-size:12px;color:var(--muted);
   }
+  .detail-meta-row{
+    display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    margin:-6px 0 22px;
+  }
+  .btn.btn-inline{width:auto;padding:10px 20px;font-size:13px;flex:none}
   .meta-chip{
     display:inline-flex;align-items:center;gap:6px;
     padding:4px 12px;border-radius:999px;
@@ -652,7 +657,10 @@ function openDetail(s){
         <div><div class="name">${AUTHOR.name}</div><div class="username">技能缔造者 · @${AUTHOR.username}</div></div>
       </a>
     </div>
-    <div class="detail-meta" data-meta="${s.id}">${metaChips(s.meta)}</div>
+    <div class="detail-meta-row">
+      <div class="detail-meta" data-meta="${s.id}">${metaChips(s.meta)}</div>
+      <button class="btn btn-inline" id="copy-btn">复制安装指令</button>
+    </div>
     <div class="panel" style="animation-delay:.05s"><h4>它能做什么</h4><p>${s.desc}</p></div>
     <div class="panel" style="animation-delay:.12s"><h4>核心能力</h4><ul>${s.features.map(f=>`<li><b>${f[0]}</b> · ${f[1]}</li>`).join("")}</ul></div>
     <div class="panel" style="animation-delay:.19s"><h4>怎么触发</h4><div class="tags">${s.triggers.map(t=>`<span class="tag">${t}</span>`).join("")}</div></div>
@@ -665,8 +673,7 @@ function openDetail(s){
         <div><div class="lbl">${s.repo}</div><div class="url">${GITEE_BASE}/${s.repo}</div></div>
         <span class="go">打开 ↗</span>
       </a></div></div>
-    <div class="panel" style="animation-delay:.3s"><h4>🔄 更新记录</h4><div class="timeline" id="timeline"><span class="doc-loading">加载中…</span></div></div>
-    <div class="panel" style="animation-delay:.33s"><button class="btn" id="copy-btn">复制安装指令</button></div>`;
+    <div class="panel" style="animation-delay:.3s"><h4>🔄 更新记录</h4><div class="timeline" id="timeline"><span class="doc-loading">加载中…</span></div></div>`;
   detailBody.querySelector("#copy-btn").addEventListener("click",function(){copyInstall(this,s);});
   viewList.classList.add("hidden");viewDetail.classList.remove("hidden");window.scrollTo({top:0});
   loadCommits(s);
