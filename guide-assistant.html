@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>助理连接 · 新手指南</title>
+<style>
+  :root{--bg:#070b14;--card:rgba(255,255,255,.045);--card-border:rgba(255,255,255,.10);--text:#e8ecf6;--muted:#8b96b0;--brand:#4f7cff;--brand-2:#7c5cff;--brand-3:#a855f7}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.7}
+  .topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:14px;padding:14px 24px;background:rgba(7,11,20,.85);border-bottom:1px solid var(--card-border);backdrop-filter:blur(10px)}
+  .back-btn{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:14px;padding:7px 14px;border:1px solid var(--card-border);border-radius:9px;background:var(--card);transition:all .2s;cursor:pointer}
+  .back-btn:hover{color:var(--text);border-color:var(--brand)}
+  .topbar h1{font-size:17px;font-weight:600}
+  .topbar .sub{font-size:13px;color:var(--muted)}
+  .wrap{max-width:860px;margin:0 auto;padding:28px 24px 80px}
+  .hero{background:linear-gradient(135deg,color-mix(in srgb,var(--brand) 18%,transparent),color-mix(in srgb,var(--brand-2) 12%,transparent));border:1px solid color-mix(in srgb,var(--brand) 30%,transparent);border-radius:16px;padding:26px;margin-bottom:26px}
+  .hero h2{font-size:22px;margin-bottom:8px}
+  .hero p{color:var(--muted);font-size:14px}
+  .step{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:24px;margin-bottom:22px}
+  .step-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+  .step-num{flex:none;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+  .step-title{font-size:17px;font-weight:600;margin-bottom:3px}
+  .step-desc{color:var(--muted);font-size:14px}
+  .step-desc b{color:var(--text)}
+  .step ul{padding-left:20px;margin:8px 0;color:var(--muted);font-size:14px}
+  .step li{margin:4px 0}
+  .step img{display:block;width:100%;max-width:720px;height:auto;margin:14px auto 0;border-radius:12px;border:1px solid var(--card-border);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+  .tip{margin-top:12px;padding:10px 14px;background:color-mix(in srgb,#16a34a 10%,transparent);border:1px solid color-mix(in srgb,#16a34a 28%,transparent);border-radius:8px;font-size:13px;color:#7bd88f}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <a class="back-btn" onclick="history.length>1?history.back():location.href='index.html'">← 返回</a>
+    <div><h1>助理连接</h1><div class="sub">把微信 / QQ / 企业微信等通道连到 WorkBuddy</div></div>
+  </div>
+  <div class="wrap">
+    <div class="hero">
+      <h2>用微信远程指挥 WorkBuddy 干活</h2>
+      <p>连接第三方消息通道后，你可以直接在微信、QQ、企业微信、飞书、钉钉里给 WorkBuddy 下指令，结果实时回传到聊天窗口，人在外面也能遥控电脑端干活。</p>
+    </div>
+
+    <div class="step">
+      <div class="step-head"><div class="step-num">1</div><div><div class="step-title">打开「助理设置」</div><div class="step-desc">点击左下角 <b>「设置」</b> → 左侧菜单 <b>「助理设置」</b> → 顶部切到 <b>「远程通道」</b>。</div></div></div>
+      <img src="guide_imgs/assistant/image2.png" alt="助理设置-远程通道">
+    </div>
+
+    <div class="step">
+      <div class="step-head"><div class="step-num">2</div><div><div class="step-title">选择要连接的通道</div><div class="step-desc">远程通道里列出多个可选通道，点对应通道的 <b>「连接」</b>：</div></div></div>
+      <ul>
+        <li><b>微信助理 / 微信客服号</b>：微信扫码绑定，直接下发指令、结果回传微信；</li>
+        <li><b>QQ 机器人</b>：QQ 聊天窗口下达指令、查看进度；</li>
+        <li><b>企业微信机器人</b>：在企微群「@机器人」下发任务，全员共享结果；</li>
+        <li><b>飞书 / 钉钉机器人</b>：群聊中直接与 WorkBuddy 对话。</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <div class="step-head"><div class="step-num">3</div><div><div class="step-title">扫码授权，完成连接</div><div class="step-desc">按提示扫码 / 授权，完成后通道显示 <b>「已连接」</b>。之后就能在对应聊天工具里指挥 WorkBuddy 了。</div></div></div>
+      <img src="guide_imgs/assistant/image3.png" alt="微信已连接">
+      <div class="tip">💡 首次连接时若弹出「允许完全访问」，确认授权即可（这是远程通道正常工作的必要权限）。</div>
+    </div>
+  </div>
+</body>
+</html>
