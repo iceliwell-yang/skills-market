@@ -615,7 +615,7 @@ function buildCard(s,i){
         复制安装指令
       </button>
     </div>
-    <div class="meta" data-meta="${s.id}"><span class="time">加载中…</span><a class="doc-link" href="doc.html?id=${s.id}" target="_blank" rel="noopener">📖 使用文档</a></div>
+    <div class="meta" data-meta="${s.id}"><span class="time">加载中…</span><a class="doc-link" href="doc.html?id=${s.id}" target="_blank" rel="noopener" onclick="event.stopPropagation()">📖 使用文档</a></div>
     <a class="author" href="${AUTHOR.url}" target="_blank" rel="noopener">
       <img class="avatar" src="${AUTHOR.avatar}" alt="${AUTHOR.name}">
       <span class="name">${AUTHOR.name}</span>
@@ -624,7 +624,6 @@ function buildCard(s,i){
   c.addEventListener("mousemove",e=>{const r=c.getBoundingClientRect();c.style.setProperty("--mx",(e.clientX-r.left)+"px");c.style.setProperty("--my",(e.clientY-r.top)+"px");});
   c.addEventListener("click",()=>openDetail(s));
   c.querySelector(".mini-btn").addEventListener("click",e=>{e.stopPropagation();copyInstall(c.querySelector(".mini-btn"),s);});
-  c.querySelector(".doc-link").addEventListener("click",e=>e.stopPropagation());
   c.querySelector(".author").addEventListener("click",e=>e.stopPropagation());
   return c;
 }
@@ -726,7 +725,11 @@ async function fetchSkillMeta(repo){
 function updateMetaUI(id){
   const s=SKILLS.find(x=>x.id===id);if(!s)return;
   document.querySelectorAll('[data-meta="'+id+'"]').forEach(el=>{
-    el.innerHTML=el.classList.contains("detail-meta")?metaChips(s.meta):metaLine(s.meta);
+    if(el.classList.contains("detail-meta")){
+      el.innerHTML=metaChips(s.meta);
+    }else{
+      el.innerHTML=metaLine(s.meta)+'<a class="doc-link" href="doc.html?id='+id+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">📖 使用文档</a>';
+    }
   });
 }
 async function loadAllMeta(){
