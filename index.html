@@ -634,10 +634,9 @@ async function loadDoc(s){
     const res=await fetch('https://gitee.com/api/v5/repos/'+GITEE_OWNER+'/'+s.repo+'/contents/'+fn);
     const data=await res.json();
     let md=b64decode(data.content||"");
-    const imgBase=GITEE_BASE+'/'+s.repo+'/raw/main';
-    md=md.replace(/\]\(images\//g,']('+imgBase+'/images/');
+    md=md.replace(/\]\(images\//g,'](images/'+s.id+'/');
     docEl.innerHTML = (window.marked ? marked.parse(md) : '<pre>'+md.replace(/</g,'&lt;')+'</pre>');
-    docEl.querySelectorAll('img').forEach(img=>{ img.referrerPolicy='no-referrer'; img.loading='lazy'; });
+    docEl.querySelectorAll('img').forEach(img=>{ img.loading='lazy'; });
   }catch(e){
     docEl.innerHTML='<p>使用文档加载失败，请 <a href="'+GITEE_BASE+'/'+s.repo+'/blob/main/'+encodeURIComponent(s.doc)+'" target="_blank" rel="noopener">在 Gitee 查看</a></p>';
   }
