@@ -630,10 +630,9 @@ async function loadDoc(s){
   const docEl=document.getElementById("doc-content");
   if(!docEl)return;
   try{
-    const fn=encodeURIComponent(s.doc);
-    const res=await fetch('https://gitee.com/api/v5/repos/'+GITEE_OWNER+'/'+s.repo+'/contents/'+fn);
-    const data=await res.json();
-    let md=b64decode(data.content||"");
+    const res=await fetch('docs/'+s.id+'.md');
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    let md=await res.text();
     md=md.replace(/\]\(images\//g,'](images/'+s.id+'/');
     docEl.innerHTML = (window.marked ? marked.parse(md) : '<pre>'+md.replace(/</g,'&lt;')+'</pre>');
     docEl.querySelectorAll('img').forEach(img=>{ img.loading='lazy'; });
