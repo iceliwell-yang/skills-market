@@ -301,6 +301,12 @@
   .repo-btn .lbl{font-size:14px;font-weight:600}
   .repo-btn .url{font-size:12px;color:var(--muted)}
   .repo-btn .go{color:var(--brand);font-size:13px;font-weight:600;flex:none}
+  .repo-btn.doc-btn{
+    background:color-mix(in srgb,#16a34a 12%,transparent);border-color:color-mix(in srgb,#16a34a 30%,transparent);
+  }
+  .repo-btn.doc-btn:hover{border-color:#22c55e;background:color-mix(in srgb,#16a34a 20%,transparent)}
+  .repo-btn.doc-btn .lbl{color:#4ade80}
+  .repo-btn.doc-btn .go{color:#4ade80}
 
   .btn{
     border:none;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;
@@ -457,7 +463,7 @@ const SKILLS = [
     id:"dmp", name:"达摩盘画像爬取", tagline:"淘宝达摩盘 · 人群画像数据采集",
     desc:"从达摩盘「画像透视」页爬取人群画像分布，导出 Excel 底表。内置完整应用，支持网页表单 + agent 代跑两种方式。",
     triggers:["爬达摩盘画像","达摩盘人群画像","画像标签分布"],
-    repo:"linkworld-skill-dmp-portrait", icon:"chart", version:"1.0.0", date:"2026-09-01",
+    repo:"linkworld-skill-dmp-portrait", icon:"chart", version:"1.0.0", date:"2026-09-01", doc:"使用文档.md",
     features:[
       ["覆盖范围","四大类 57 个画像标签（用户特征 / 品类 / 渠道 / 私域），按「人群 × 标签」取占比与覆盖人数。"],
       ["内置完整应用","app/ 目录含网页表单（server.js + form.html）与命令行抓取，开箱即用。"],
@@ -469,7 +475,7 @@ const SKILLS = [
     id:"sycm", name:"生意参谋市场排行爬取", tagline:"淘宝生意参谋 · 商品榜数据采集",
     desc:"爬取生意参谋「市场排行（商品榜）」，按类目 + 时间 + 店铺类型抓全量，导出 Excel。",
     triggers:["爬生意参谋榜单","生意参谋市场排行","商品榜"],
-    repo:"linkworld-skill-sycm-rank", icon:"rank", version:"1.0.0", date:"2026-09-01",
+    repo:"linkworld-skill-sycm-rank", icon:"rank", version:"1.0.0", date:"2026-09-01", doc:"使用文档.md",
     features:[
       ["榜单字段","商品 ID、名称、链接、关键词、店铺、支付买家数、访客数、趋势（升/降/新上榜）。"],
       ["灵活取数","按类目 + 时间（实时/7天/30天/日/周/月）+ 店铺类型（天猫/淘宝/全部）翻页抓取，支持多类目循环。"],
@@ -579,7 +585,11 @@ function openDetail(s){
     <div class="panel" style="animation-delay:.05s"><h4>它能做什么</h4><p>${s.desc}</p></div>
     <div class="panel" style="animation-delay:.12s"><h4>核心能力</h4><ul>${s.features.map(f=>`<li><b>${f[0]}</b> · ${f[1]}</li>`).join("")}</ul></div>
     <div class="panel" style="animation-delay:.19s"><h4>怎么触发</h4><div class="tags">${s.triggers.map(t=>`<span class="tag">${t}</span>`).join("")}</div></div>
-    <div class="panel" style="animation-delay:.26s"><h4>Gitee 仓库</h4><div class="repos">
+    <div class="panel" style="animation-delay:.26s"><h4>Gitee 仓库 & 文档</h4><div class="repos">
+      <a class="repo-btn doc-btn" href="${GITEE_BASE}/${s.repo}/blob/main/${s.doc}" target="_blank" rel="noopener">
+        <div><div class="lbl">📖 使用文档</div><div class="url">操作步骤 · 界面截图 · 取数位置 · 举例</div></div>
+        <span class="go">查看 ↗</span>
+      </a>
       <a class="repo-btn" href="${GITEE_BASE}/${s.repo}" target="_blank" rel="noopener">
         <div><div class="lbl">${s.repo}</div><div class="url">${GITEE_BASE}/${s.repo}</div></div>
         <span class="go">打开 ↗</span>
