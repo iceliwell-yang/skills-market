@@ -426,7 +426,7 @@
   .guide-hint::before{content:"";position:absolute;left:-6px;bottom:14px;width:12px;height:12px;background:#182238;border-left:1px solid var(--card-border);border-bottom:1px solid var(--card-border);transform:rotate(45deg)}
   .guide-hint.show{opacity:1;transform:translateY(0) scale(1)}
   .guide-menu{
-    position:absolute;left:calc(100% + 12px);bottom:0;width:236px;padding:10px;
+    position:absolute;left:calc(100% + 4px);bottom:0;width:236px;padding:10px;
     border-radius:14px;background:#0f172a;border:1px solid var(--card-border);box-shadow:0 16px 44px rgba(0,0,0,.55);
     opacity:0;transform:translateY(12px) scale(.95);pointer-events:none;transition:opacity .25s ease,transform .25s ease;
   }
@@ -572,11 +572,15 @@ const guideBot=document.getElementById("guide-bot");
 const guideHint=document.getElementById("guide-hint");
 const guideMenu=document.getElementById("guide-menu");
 let guideTimer=null;
+let guideCloseTimer=null;
 function hintShow(){guideHint.classList.add("show");guideTimer=setTimeout(hintHide,3000);}
 function hintHide(){guideHint.classList.remove("show");guideTimer=setTimeout(hintShow,1500);}
 function stopGuide(){if(guideTimer){clearTimeout(guideTimer);guideTimer=null;}}
-guideBot.addEventListener("mouseenter",()=>{stopGuide();guideHint.classList.remove("show");guideMenu.classList.add("show");});
-guideBot.addEventListener("mouseleave",()=>{guideMenu.classList.remove("show");hintShow();});
+function clearClose(){if(guideCloseTimer){clearTimeout(guideCloseTimer);guideCloseTimer=null;}}
+guideBot.addEventListener("mouseenter",()=>{stopGuide();clearClose();guideHint.classList.remove("show");guideMenu.classList.add("show");});
+guideBot.addEventListener("mouseleave",()=>{clearClose();guideCloseTimer=setTimeout(()=>{guideMenu.classList.remove("show");hintShow();},250);});
+guideMenu.addEventListener("mouseenter",()=>{clearClose();});
+guideMenu.addEventListener("mouseleave",()=>{guideMenu.classList.remove("show");hintShow();});
 hintShow();
 
 /* ===== 主题系统 ===== */
