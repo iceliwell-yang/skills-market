@@ -624,7 +624,8 @@ try{ const saved = localStorage.getItem("lw-theme"); if(saved!=null) applyTheme(
 /* ===== 图标 ===== */
 const ICONS = {
   chart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.2 15.9A10 10 0 1 1 8 2.8"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>',
-  rank: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l3-4 3 2 4-6"/></svg>'
+  rank: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l3-4 3 2 4-6"/></svg>',
+  crowd: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>'
 };
 
 const SKILLS = [
@@ -650,6 +651,18 @@ const SKILLS = [
       ["灵活取数","按类目 + 时间（实时/7天/30天/日/周/月）+ 店铺类型（天猫/淘宝/全部）翻页抓取，支持多类目循环。"],
       ["风控绕过","直连 rank.json 接口 + 页面内 fetch 绕过 bx-ua 风控；登录态自动复用。"],
       ["交付","导出 Excel + JSON 双备份，文件名含店铺与统计时间范围。"]
+    ]
+  },
+  {
+    id:"crowd", name:"达摩盘人群圈选", tagline:"淘宝达摩盘 · 人群包圈选创建",
+    desc:"在达摩盘「自定义圈人」页按标签条件自动圈选人群并保存为人群包。支持交/并/差组合、多维标签、批量圈选。",
+    triggers:["圈选人群包","达摩盘圈人","圈一个人群","按标签圈人群"],
+    repo:"linkworld-skill-dmp-crowd-builder", icon:"crowd", version:"1.7.0", date:"2026-09-02", doc:"使用文档.md",
+    features:[
+      ["圈选条件","按标签（年龄/性别/消费能力/城市等）圈人，支持单标签、多标签交/并/差组合。"],
+      ["多维标签","支持类目行为人群（全网）、店铺行为人群（本店）等多维标签圈选。"],
+      ["批量+预览","批量圈多个人群，创建前先预览人群名与条件，确认后再创建。"],
+      ["交付","保存为人群包（不推送投放），返回人群名 + crowdId + 覆盖人数。"]
     ]
   }
 ];
