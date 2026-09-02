@@ -26,10 +26,8 @@
   .step ul{padding-left:20px;margin:8px 0;color:var(--muted);font-size:14px}
   .step li{margin:4px 0}
   .step code{background:color-mix(in srgb,var(--brand) 16%,transparent);padding:2px 6px;border-radius:4px;font-family:Consolas,monospace;font-size:13px;color:var(--text)}
-  .step img{display:block;width:100%;max-width:720px;height:auto;margin:14px auto 0;border-radius:12px;border:1px solid var(--card-border);box-shadow:0 8px 24px rgba(0,0,0,.35)}
-  .step img{cursor:zoom-in}
+  .step img{display:block;width:100%;max-width:720px;height:auto;margin:14px auto 0;border-radius:12px;border:1px solid var(--card-border);box-shadow:0 8px 24px rgba(0,0,0,.35);cursor:zoom-in}
   .tip{margin-top:12px;padding:10px 14px;background:color-mix(in srgb,#16a34a 10%,transparent);border:1px solid color-mix(in srgb,#16a34a 28%,transparent);border-radius:8px;font-size:13px;color:#7bd88f}
-  .way{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;margin-right:8px;background:color-mix(in srgb,var(--brand-3) 20%,transparent);color:#d8b4fe}
   .lightbox{position:fixed;inset:0;z-index:200;background:rgba(3,6,15,.88);display:flex;align-items:center;justify-content:center;cursor:zoom-out;backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease}
   .lightbox.open{opacity:1;visibility:visible}
   .lightbox img{max-width:92vw;max-height:92vh;border-radius:10px;box-shadow:0 24px 70px rgba(0,0,0,.6);border:1px solid var(--card-border);transform:scale(.72);opacity:0;transition:transform .38s cubic-bezier(.22,1.4,.36,1),opacity .3s ease}
@@ -45,38 +43,23 @@
   <div class="wrap">
     <div class="hero">
       <h2>给自己的 WorkBuddy 加个专属技能</h2>
-      <p>Skill 是 WorkBuddy 的「能力包」——装一个就多一项本事（爬数据、写文档、做分析……）。你也可以自己造一个，让 WorkBuddy 学会你想要的专属能力。下面三种方式，从简单到进阶。</p>
+      <p>Skill 是 WorkBuddy 的「能力包」——装一个就多一项本事。下面 3 步，教你从零创建一个自己的 skill。</p>
     </div>
 
     <div class="step">
-      <div class="step-head"><div class="step-num">1</div><div><div class="step-title"><span class="way">方式一</span>对话框直接创建（最简单，推荐 ⭐）</div><div class="step-desc">直接在对话框里告诉 WorkBuddy 你想做什么，它会调用 <b>skill-creator</b> 帮你把技能造出来：</div></div></div>
-      <ul>
-        <li>在对话框输入：<code>请帮我创建一个可以实现「……」的 skill</code>；</li>
-        <li>接着按提示回答「这个 skill 要什么功能」，描述清楚用途即可；</li>
-        <li>skill-creator 会自动生成技能文件，装好后就能用。</li>
-      </ul>
-      <img src="guide_imgs/dev/image3.webp" alt="对话框里用 skill-creator 创建 skill">
+      <div class="step-head"><div class="step-num">1</div><div><div class="step-title">进入技能页，找到「创建技能」入口</div><div class="step-desc">点击侧边栏 <b>「专家·技能·连接器」</b> → 切到 <b>「技能」</b>，点右上角 <b>「+ 添加技能」</b>，会弹出三个入口：<b>查找技能 / 上传技能 / 创建技能</b>。</div></div></div>
+      <img src="guide_imgs/dev/image1.webp" alt="技能页面里的添加技能入口">
     </div>
 
     <div class="step">
-      <div class="step-head"><div class="step-num">2</div><div><div class="step-title"><span class="way">方式二</span>召唤「Skill 制作顾问」专家</div><div class="step-desc">不想自己描述太多的话，可以找专门的专家帮你做：</div></div></div>
-      <ul>
-        <li>点击侧边栏 <b>「专家·技能·连接器」</b> → 切到 <b>「专家」</b>；</li>
-        <li>在搜索框搜 <b>「Skill 制作顾问」</b>；</li>
-        <li>召唤这位专家，告诉它你要什么技能，它来帮你设计制作。</li>
-      </ul>
+      <div class="step-head"><div class="step-num">2</div><div><div class="step-title">召唤「Skill 制作顾问」专家</div><div class="step-desc">切到 <b>「专家」</b>，在搜索框搜 <b>「Skill 制作顾问」</b>，召唤这位专门帮你制作 skill 的专家。</div></div></div>
       <img src="guide_imgs/dev/image2.webp" alt="专家页里的 Skill 制作顾问">
     </div>
 
     <div class="step">
-      <div class="step-head"><div class="step-num">3</div><div><div class="step-title"><span class="way">方式三</span>手动创建技能（进阶）</div><div class="step-desc">熟悉后也可以自己动手，在技能页面里创建：</div></div></div>
-      <ul>
-        <li>点击侧边栏 <b>「专家·技能·连接器」</b> → 切到 <b>「技能」</b>；</li>
-        <li>点右上角 <b>「+ 添加技能」</b> → 选 <b>「创建技能」</b>；</li>
-        <li>按提示填写技能名称、描述（YAML 格式）、触发词等，保存即可。</li>
-      </ul>
-      <img src="guide_imgs/dev/image1.webp" alt="技能页面里的创建技能入口">
-      <div class="tip">💡 技能页面里还有「查找技能」（从市场搜现成的）和「上传技能」（导入本地技能包），需要现成能力时也可以用。</div>
+      <div class="step-head"><div class="step-num">3</div><div><div class="step-title">在对话框里描述功能，生成 skill</div><div class="step-desc">专家会调用 <b>skill-creator</b> 引导你：在对话框里输入 <code>请帮我创建一个可以实现「……」的 skill</code>，再按提示填写「该 skill 要什么功能」，描述清楚后它就会自动帮你生成。</div></div></div>
+      <img src="guide_imgs/dev/image3.webp" alt="对话框里用 skill-creator 创建 skill">
+      <div class="tip">💡 描述功能时越具体越好（比如「爬取某网站的数据并导出 Excel」），skill-creator 就能生成更贴合你需求的技能。</div>
     </div>
   </div>
 <div class="lightbox" id="lightbox"><img id="lightbox-img" src="" alt=""><span class="lb-hint">✕ 点击任意处关闭</span></div>
