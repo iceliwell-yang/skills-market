@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>公共通用技能库 · WorkBuddy</title>
+<title>Linkworld · Skill 市场</title>
 <script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
 <style>
   :root{
@@ -491,7 +491,7 @@
     <header>
       <div class="logo">LW</div>
       <h1 id="title"></h1>
-      <p class="sub">公共通用 <b>WorkBuddy 技能库</b> · 找到需要的技能，复制一句指令，粘贴即用</p>
+      <p class="sub">Linkworld 内部 <b>WorkBuddy 技能库</b> · 找到需要的技能，复制一句指令，粘贴即用</p>
       <div class="steps">
         <div class="step" style="animation-delay:.5s"><div class="step-head"><span class="n">1</span><b>浏览技能</b></div><span class="step-detail">浏览下面的技能卡片，看它做什么、怎么触发</span></div>
         <div class="step" style="animation-delay:.6s"><div class="step-head"><span class="n">2</span><b>点卡片看详情</b></div><span class="step-detail">点卡片进入技能讲解页，含 Gitee 仓库链接</span></div>
@@ -693,10 +693,10 @@ SKILLS.forEach(s=>{ s.meta = {version:s.version, date:s.date}; });
 /* ===== 标题逐字 ===== */
 (function(){
   const el = document.getElementById("title");
-  const TITLE = "公共通用技能库";
+  const TITLE = "Linkworld 内部 Skill 市场";
   const gradSet = new Set();
-  const skillStart = TITLE.indexOf("技能");
-  for (let k = 0; k < "技能".length; k++) gradSet.add(skillStart + k);
+  const skillStart = TITLE.indexOf("Skill");
+  for (let k = 0; k < "Skill".length; k++) gradSet.add(skillStart + k);
   [...TITLE].forEach((c,i)=>{
     const s = document.createElement("span");
     s.className = "ch" + (gradSet.has(i) ? " grad" : "");
