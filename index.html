@@ -634,7 +634,8 @@ try{ const saved = localStorage.getItem("lw-theme"); if(saved!=null) applyTheme(
 const ICONS = {
   chart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.2 15.9A10 10 0 1 1 8 2.8"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>',
   rank: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l3-4 3 2 4-6"/></svg>',
-  crowd: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>'
+  crowd: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>',
+  database: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg>'
 };
 
 const SKILLS = [
@@ -672,6 +673,18 @@ const SKILLS = [
       ["多维标签","支持类目行为人群（全网）、店铺行为人群（本店）等多维标签圈选。"],
       ["批量+预览","批量圈多个人群，创建前先预览人群名与条件，确认后再创建。"],
       ["交付","保存为人群包（不推送投放），返回人群名 + crowdId + 覆盖人数。"]
+    ]
+  },
+  {
+    id:"databank", name:"数据银行画像爬取", tagline:"淘宝数据银行 · 人群画像数据采集",
+    desc:"从数据银行「人群透视」页爬取人群画像分布，导出 Excel 底表。含基础画像 56 标签 + 品类行业 302 标签。",
+    triggers:["爬数据银行画像","数据银行人群画像","数据银行透视"],
+    repo:"linkworld-skill-databank-portrait", icon:"database", version:"1.0.0", date:"2026-09-03", doc:"使用文档.md",
+    features:[
+      ["覆盖范围","基础画像 56 个 + 品类行业标签 25 组 302 个，按「人群 × 标签」取占比与覆盖人数。"],
+      ["内置完整应用","app/ 目录含网页表单（server.js + form.html）与命令行抓取，开箱即用。"],
+      ["风控已解决","真实 UI 交互 + 监听 doPerspective 响应绕过 baxia 风控；首次用你自己的淘宝账号扫码登录。"],
+      ["交付","导出 Excel 底表，字段含人群、标签、属性、占比、人群量级、店铺。"]
     ]
   }
 ];
