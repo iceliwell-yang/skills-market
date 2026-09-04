@@ -81,8 +81,8 @@
 <div class="lightbox" id="lightbox"><img id="lightbox-img" src="" alt=""><span class="lb-hint">✕ 点击任意处关闭</span></div>
 
 <script>
-const NAMES = { dmp:'达摩盘画像爬取', sycm:'生意参谋市场排行爬取', crowd:'达摩盘人群圈选', databank:'数据银行画像爬取', hourly:'小米小时报' };
-const REPOS = { dmp:'linkworld-skill-dmp-portrait', sycm:'linkworld-skill-sycm-rank', crowd:'linkworld-skill-dmp-crowd-builder', databank:'linkworld-skill-databank-portrait', hourly:'linkworld-skill-ad-sycm-hourly-report' };
+const NAMES = { dmp:'达摩盘画像爬取', sycm:'生意参谋市场排行爬取', crowd:'达摩盘人群圈选', databank:'数据银行画像爬取', hourly:'小米小时报', compete:'达摩盘竞争态势分析' };
+const REPOS = { dmp:'linkworld-skill-dmp-portrait', sycm:'linkworld-skill-sycm-rank', crowd:'linkworld-skill-dmp-crowd-builder', databank:'linkworld-skill-databank-portrait', hourly:'linkworld-skill-ad-sycm-hourly-report', compete:'linkworld-skill-dmp-compete-situation' };
 const params = new URLSearchParams(location.search);
 const id = params.get('id') || 'dmp';
 const name = NAMES[id] || '使用文档';
