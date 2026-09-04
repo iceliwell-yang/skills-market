@@ -634,7 +634,8 @@ const ICONS = {
   rank: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l3-4 3 2 4-6"/></svg>',
   crowd: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>',
   database: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg>',
-  clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>'
+  clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>',
+  compare: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><rect x="5" y="11" width="4" height="9"/><rect x="15" y="5" width="4" height="15"/></svg>'
 };
 
 const SKILLS = [
@@ -684,6 +685,18 @@ const SKILLS = [
       ["内置完整应用","app/ 目录含网页表单（server.js + form.html）与命令行抓取，开箱即用。"],
       ["风控已解决","真实 UI 交互 + 监听 doPerspective 响应绕过 baxia 风控；首次用你自己的淘宝账号扫码登录。"],
       ["交付","导出 Excel 底表，字段含人群、标签、属性、占比、人群量级、店铺。"]
+    ]
+  },
+  {
+    id:"compete", name:"达摩盘竞争态势分析", tagline:"淘宝达摩盘 · 竞争分析数据采集",
+    desc:"爬取达摩盘「竞争态势分析」页各板块数据（含关键词/人群弹窗明细），导出带统计时间+店铺名称的 Excel。",
+    triggers:["爬达摩盘竞争态势","竞争态势分析","竞争分析爬数"],
+    repo:"linkworld-skill-dmp-compete-situation", icon:"compare", version:"1.18.0", date:"2026-09-04", doc:"使用文档.md", cat:"common",
+    features:[
+      ["七大板块","核心指标/竞争控比/推广指标/经营指标/付免流量/无界投资/关键词/人群/客群画像。"],
+      ["直连接口","走 advgateway 接口直接取数，无需 UI 操作；竞品超 3 个自动分批合并。"],
+      ["商品+店铺级","支持商品级（本品 vs 竞品）和店铺级（本店 vs 竞店）两种分析对象。"],
+      ["交付","导出宽表 Excel，每板块一个 sheet，统一带统计时间 + 店铺名称。"]
     ]
   },
   {
