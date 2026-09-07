@@ -183,20 +183,23 @@
   .rc-card{
     flex:0 0 calc((100% - 36px)/3);position:relative;overflow:hidden;cursor:pointer;
     background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);
-    padding:22px;display:flex;flex-direction:column;gap:14px;backdrop-filter:blur(10px);
+    display:flex;flex-direction:column;text-decoration:none;color:inherit;backdrop-filter:blur(10px);
     transition:transform .3s cubic-bezier(.22,.61,.36,1),border-color .3s,box-shadow .3s;
   }
-  .rc-card::before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .3s;background:radial-gradient(600px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--brand-2) 16%,transparent),transparent 45%)}
   .rc-card:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--brand-2) 45%,transparent);box-shadow:0 20px 50px rgba(0,0,0,.5)}
-  .rc-card:hover::before{opacity:1}
-  .rc-card .top{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
-  .rc-card .icon{flex:none;width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand-3));display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px color-mix(in srgb,var(--brand-3) 35%,transparent);transition:transform .3s}
-  .rc-card:hover .icon{transform:scale(1.08) rotate(-3deg)}
-  .rc-card .icon svg{width:22px;height:22px;stroke:#fff}
-  .rc-card h3{font-size:16px;position:relative;z-index:1}
-  .rc-card .tagline{font-size:12px;color:var(--brand-3);position:relative;z-index:1}
-  .rc-card .desc{font-size:13px;color:var(--muted);flex:1;position:relative;z-index:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-  .rc-card .more{font-size:12px;color:var(--brand);display:flex;align-items:center;gap:6px;position:relative;z-index:1;transition:gap .25s}
+  .rc-cover{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#0a0f1c}
+  .rc-cover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s cubic-bezier(.22,.61,.36,1)}
+  .rc-card:hover .rc-cover img{transform:scale(1.06)}
+  .rc-cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(7,11,20,.55));pointer-events:none}
+  .rc-cover .rc-badge{
+    position:absolute;top:12px;left:12px;z-index:2;font-size:11px;font-weight:600;
+    background:rgba(7,11,20,.7);border:1px solid rgba(255,255,255,.18);color:#fff;
+    padding:3px 10px;border-radius:999px;backdrop-filter:blur(6px);
+  }
+  .rc-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:5px;flex:1}
+  .rc-body h3{font-size:16px;font-weight:700;line-height:1.4}
+  .rc-body .tagline{font-size:13px;color:var(--muted);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .rc-body .more{font-size:12px;color:var(--brand);display:flex;align-items:center;gap:6px;margin-top:8px;transition:gap .25s}
   .rc-card:hover .more{gap:10px}
   .rc-nav{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1px solid var(--card-border);background:rgba(13,18,32,.9);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);z-index:5;transition:background .2s,border-color .2s,opacity .2s}
   .rc-nav:hover{background:linear-gradient(135deg,var(--brand),var(--brand-3));border-color:transparent}
@@ -1046,20 +1049,24 @@ loadAllMeta();
   const viewport=document.getElementById("carousel-viewport");
   if(!track||!dotsEl||!prevBtn||!nextBtn)return;
 
-  // 轮播展示全部技能（与主页 SKILLS 复用）
-  SKILLS.forEach(s=>{
-    const c=document.createElement("div");
+  // 轮播展示 WorkBuddy 入门指南文章（封面用文章头部大图）
+  const GUIDES=[
+    {title:"助理连接",tagline:"用微信远程指挥 WorkBuddy 干活",img:"guide_imgs/assistant/image1.webp",href:"guide-assistant.html",badge:"新手指南"},
+    {title:"开发 Skill",tagline:"给自己的 WorkBuddy 加个专属技能",img:"guide_imgs/dev/image1.webp",href:"guide-dev.html",badge:"新手指南"},
+    {title:"自定义模型",tagline:"给 WorkBuddy 接入自己的模型",img:"guide_imgs/model/image1.webp",href:"guide-model.html",badge:"新手指南"},
+    {title:"已装技能库",tagline:"给 WorkBuddy 加装技能",img:"guide_imgs/skills/image1.webp",href:"guide-skills.html",badge:"新手指南"}
+  ];
+  GUIDES.forEach(g=>{
+    const c=document.createElement("a");
     c.className="rc-card";
+    c.href=g.href;
     c.innerHTML=`
-      <div class="top"><div class="icon">${ICONS[s.icon]}</div><div><h3>${s.name}</h3><div class="tagline">${s.tagline}</div></div></div>
-      <div class="desc">${s.desc}</div>
-      <span class="more">查看详情 <span>→</span></span>`;
-    c.addEventListener("mousemove",e=>{const r=c.getBoundingClientRect();c.style.setProperty("--mx",(e.clientX-r.left)+"px");c.style.setProperty("--my",(e.clientY-r.top)+"px");});
-    c.addEventListener("click",()=>openDetail(s));
+      <div class="rc-cover"><span class="rc-badge">${g.badge}</span><img src="${g.img}" alt="${g.title}" loading="lazy"></div>
+      <div class="rc-body"><h3>${g.title}</h3><div class="tagline">${g.tagline}</div><span class="more">阅读全文 <span>→</span></span></div>`;
     track.appendChild(c);
   });
 
-  const totalCards=SKILLS.length;
+  const totalCards=GUIDES.length;
   let perView=3,index=0,maxIndex=0,timer=null;
   const AUTO=3500;
 
