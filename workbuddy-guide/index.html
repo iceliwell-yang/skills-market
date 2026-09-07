@@ -70,6 +70,15 @@ img { max-width: 100%; }
   cursor: pointer; align-items: center; justify-content: center;
 }
 .topbar .spacer { flex: 1; }
+.back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1px solid var(--border); background: var(--bg-soft); color: var(--text-2);
+  border-radius: 8px; height: 34px; padding: 0 12px; cursor: pointer;
+  font-size: 14px; font-weight: 500; text-decoration: none;
+  transition: all .2s; flex-shrink: 0;
+}
+.back-btn:hover { border-color: var(--brand); color: var(--brand); text-decoration: none; }
+.back-btn svg { width: 16px; height: 16px; }
 .theme-btn {
   border: 1px solid var(--border); background: var(--bg-soft); color: var(--text);
   border-radius: 8px; height: 34px; width: 34px; cursor: pointer;
@@ -211,6 +220,10 @@ li::marker { color: var(--brand); }
 <body data-page-node-id="Ym9telvN79iPvuDkgVY5yp">
 
 <header class="topbar" data-page-node-id="btUrcYELD5CuYRwzqo0E3P">
+  <a class="back-btn" href="../index.html" data-page-node-id="back-btn-node">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+    返回
+  </a>
   <button class="menu-btn" id="menuBtn" aria-label="打开目录" data-page-node-id="jFpgAIufT7QpdBGrdJedSM">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" data-page-node-id="qAp6WHoWA6XumNbKxakjRu"><line x1="3" y1="6" x2="21" y2="6" data-page-node-id="A62vDfpnvUW2azAbiQFL7x"/><line x1="3" y1="12" x2="21" y2="12" data-page-node-id="ZRPsH1VIujjw6PP0cfgEqU"/><line x1="3" y1="18" x2="21" y2="18" data-page-node-id="cMUF6YaSuEN8X29jKngPwo"/></svg>
   </button>
