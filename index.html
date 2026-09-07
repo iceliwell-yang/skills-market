@@ -1057,6 +1057,8 @@ loadAllMeta();
     const c=document.createElement("a");
     c.className="rc-card";
     c.href=g.href;
+    c.target="_blank";
+    c.rel="noopener";
     c.innerHTML=`
       <div class="rc-cover"><span class="rc-badge">${g.badge}</span><img src="${g.img}" alt="${g.title}" loading="lazy"></div>
       <div class="rc-body"><h3>${g.title}</h3><div class="tagline">${g.tagline}</div><span class="more">阅读全文 <span>→</span></span></div>`;
