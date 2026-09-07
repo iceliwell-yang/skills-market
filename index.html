@@ -171,50 +171,6 @@
   .search input::placeholder{color:var(--muted)}
   .search input:focus{border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb,var(--brand) 18%,transparent)}
 
-  /* ===== 精选推荐轮播 ===== */
-  .carousel-section{margin:8px 0 0}
-  .carousel-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px}
-  .carousel-head h2{font-size:20px}
-  .carousel-head h2 .grad{background:linear-gradient(90deg,var(--brand),var(--brand-3),var(--brand-2),var(--brand));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 5s linear infinite}
-  .carousel-head .hint{font-size:12px;color:var(--muted)}
-  .carousel{position:relative}
-  .carousel-viewport{overflow:hidden;border-radius:var(--radius)}
-  .carousel-track{display:flex;gap:18px;transition:transform .55s cubic-bezier(.4,0,.2,1)}
-  .rc-card{
-    flex:0 0 100%;position:relative;overflow:hidden;cursor:pointer;
-    background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);
-    display:flex;flex-direction:column;text-decoration:none;color:inherit;backdrop-filter:blur(10px);
-    transition:transform .3s cubic-bezier(.22,.61,.36,1),border-color .3s,box-shadow .3s;
-  }
-  .rc-card:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--brand-2) 45%,transparent);box-shadow:0 20px 50px rgba(0,0,0,.5)}
-  .rc-cover{position:relative;width:100%;aspect-ratio:16/7;overflow:hidden;background:#0a0f1c}
-  .rc-cover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s cubic-bezier(.22,.61,.36,1)}
-  .rc-card:hover .rc-cover img{transform:scale(1.04)}
-  .rc-cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(7,11,20,.55));pointer-events:none}
-  .rc-cover .rc-badge{
-    position:absolute;top:12px;left:12px;z-index:2;font-size:11px;font-weight:600;
-    background:rgba(7,11,20,.7);border:1px solid rgba(255,255,255,.18);color:#fff;
-    padding:3px 10px;border-radius:999px;backdrop-filter:blur(6px);
-  }
-  .rc-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:5px;flex:1}
-  .rc-body h3{font-size:18px;font-weight:700;line-height:1.4}
-  .rc-body .tagline{font-size:14px;color:var(--muted);line-height:1.6}
-  .rc-body .more{font-size:13px;color:var(--brand);display:flex;align-items:center;gap:6px;margin-top:10px;transition:gap .25s}
-  .rc-card:hover .more{gap:10px}
-  .rc-nav{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1px solid var(--card-border);background:rgba(13,18,32,.9);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);z-index:5;transition:background .2s,border-color .2s,opacity .2s}
-  .rc-nav:hover{background:linear-gradient(135deg,var(--brand),var(--brand-3));border-color:transparent}
-  .rc-nav:disabled{opacity:.3;cursor:default}
-  .rc-nav:disabled:hover{background:rgba(13,18,32,.9);border-color:var(--card-border)}
-  .rc-nav.prev{left:-20px}
-  .rc-nav.next{right:-20px}
-  .rc-nav svg{width:18px;height:18px}
-  .rc-dots{display:flex;justify-content:center;gap:8px;margin-top:20px}
-  .rc-dot{width:8px;height:8px;border-radius:999px;border:none;cursor:pointer;padding:0;background:rgba(255,255,255,.18);transition:all .3s}
-  .rc-dot.active{width:26px;background:linear-gradient(90deg,var(--brand),var(--brand-3))}
-  .rc-dot:hover{background:rgba(255,255,255,.4)}
-  @media(max-width:900px){.rc-cover{aspect-ratio:16/9}}
-  @media(max-width:620px){.rc-nav{display:none}}
-
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;padding-bottom:80px}
   .xiaomi-toolbar{margin-top:24px}
   .empty{grid-column:1/-1;padding:48px 24px;text-align:center;color:var(--muted);font-size:14px;border:1px dashed var(--card-border);border-radius:var(--radius);background:var(--card)}
@@ -557,25 +513,6 @@
       </div>
     </header>
 
-    <div class="carousel-section" data-page-node-id="rc-section">
-      <div class="carousel-head" data-page-node-id="rc-head">
-        <h2 data-page-node-id="rc-h2">🔥 <span class="grad" data-page-node-id="rc-grad">精选推荐</span></h2>
-        <span class="hint" data-page-node-id="rc-hint">悬停暂停 · 左右滑动浏览</span>
-      </div>
-      <div class="carousel" id="carousel" data-page-node-id="rc-carousel">
-        <div class="carousel-viewport" id="carousel-viewport" data-page-node-id="rc-viewport">
-          <div class="carousel-track" id="carousel-track" data-page-node-id="rc-track"></div>
-        </div>
-        <button class="rc-nav prev" id="rc-prev" aria-label="上一张" data-page-node-id="rc-prev">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="rc-prev-svg"><polyline points="15 18 9 12 15 6" data-page-node-id="rc-prev-pl"/></svg>
-        </button>
-        <button class="rc-nav next" id="rc-next" aria-label="下一张" data-page-node-id="rc-next">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="rc-next-svg"><polyline points="9 18 15 12 9 6" data-page-node-id="rc-next-pl"/></svg>
-        </button>
-        <div class="rc-dots" id="rc-dots" data-page-node-id="rc-dots"></div>
-      </div>
-    </div>
-
     <div class="toolbar" data-page-node-id="rzmieZcc2E046GRyMbg8GD">
       <h2 data-page-node-id="WmANboml3VrXFUtOKfQEHZ">公共通用技能库<span class="count" id="count" data-page-node-id="ENT5PwJhsbetsDSWcVvGqA">0</span></h2>
       <div class="search" data-page-node-id="UvGpiCB4rEhKfbcykX8ktc">
@@ -698,8 +635,7 @@ const ICONS = {
   crowd: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>',
   database: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg>',
   clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>',
-  compare: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><rect x="5" y="11" width="4" height="9"/><rect x="15" y="5" width="4" height="15"/></svg>',
-  users: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'
+  compare: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><rect x="5" y="11" width="4" height="9"/><rect x="15" y="5" width="4" height="15"/></svg>'
 };
 
 const SKILLS = [
@@ -761,18 +697,6 @@ const SKILLS = [
       ["直连接口","走 advgateway 接口直接取数，无需 UI 操作；竞品超 3 个自动分批合并。"],
       ["商品+店铺级","支持商品级（本品 vs 竞品）和店铺级（本店 vs 竞店）两种分析对象。"],
       ["交付","导出宽表 Excel，每板块一个 sheet，统一带统计时间 + 店铺名称。"]
-    ]
-  },
-  {
-    id:"multi", name:"多账号自动登录与数据下载", tagline:"多店多账号 · 复用登录态批量下载",
-    desc:"复用本地 Chrome 登录态，按站点配置自动打开各后台下载数据并整合成一个 Excel，全程不接触账号密码明文。",
-    triggers:["切换账号下载","批量更新多店数据","多账号后台数据整合"],
-    repo:"linkworld-skill-multi-account-download", icon:"users", version:"1.0.0", date:"2026-09-05", doc:"使用文档.md", cat:"common",
-    features:[
-      ["复用登录态","复用你本机 Chrome 已登录的账号，切换多店/多账号下载，不碰密码明文。"],
-      ["批量整合","每个站点一个 sheet + 汇总表，多后台数据整合成一个 Excel。"],
-      ["审计留痕","每步操作、时间、成败都记录在审计报告里。"],
-      ["安全红线","不读不存 Cookie/Token/Session 明文，登录永远由用户手动完成。"]
     ]
   },
   {
@@ -1038,76 +962,6 @@ async function loadAllMeta(){
   }));
 }
 loadAllMeta();
-
-/* ===== 精选推荐轮播 ===== */
-(function(){
-  const track=document.getElementById("carousel-track");
-  const dotsEl=document.getElementById("rc-dots");
-  const prevBtn=document.getElementById("rc-prev");
-  const nextBtn=document.getElementById("rc-next");
-  const carousel=document.getElementById("carousel");
-  const viewport=document.getElementById("carousel-viewport");
-  if(!track||!dotsEl||!prevBtn||!nextBtn)return;
-
-  // 轮播展示 WorkBuddy 入门指南文档（封面用文档头部大图）
-  const GUIDES=[
-    {title:"WorkBuddy 小白入门指南",tagline:"从界面解析到核心功能，配 12 张操作截图，看完就能上手 —— 基于「WorkBuddy 60 分钟保姆级教程」整理。",img:"workbuddy-guide/cover.svg",href:"workbuddy-guide/index.html",badge:"入门指南"}
-  ];
-  GUIDES.forEach(g=>{
-    const c=document.createElement("a");
-    c.className="rc-card";
-    c.href=g.href;
-    c.target="_blank";
-    c.rel="noopener";
-    c.innerHTML=`
-      <div class="rc-cover"><span class="rc-badge">${g.badge}</span><img src="${g.img}" alt="${g.title}" loading="lazy"></div>
-      <div class="rc-body"><h3>${g.title}</h3><div class="tagline">${g.tagline}</div><span class="more">阅读全文 <span>→</span></span></div>`;
-    track.appendChild(c);
-  });
-
-  const totalCards=GUIDES.length;
-  let perView=1,index=0,maxIndex=0,timer=null;
-  const AUTO=3500;
-
-  function getPerView(){return 1;}
-  function updateMetrics(){perView=getPerView();maxIndex=Math.max(0,totalCards-perView);if(index>maxIndex)index=maxIndex;}
-  function render(){
-    track.style.transform='translateX(-'+(index*(100/perView))+'%)';
-    dotsEl.querySelectorAll('.rc-dot').forEach((d,i)=>d.classList.toggle('active',i===index));
-    prevBtn.disabled=index<=0;nextBtn.disabled=index>=maxIndex;
-  }
-  function buildDots(){dotsEl.innerHTML='';for(let i=0;i<=maxIndex;i++){const d=document.createElement('button');d.className='rc-dot'+(i===index?' active':'');d.setAttribute('aria-label','第 '+(i+1)+' 页');d.addEventListener('click',()=>goTo(i));dotsEl.appendChild(d);}}
-  function goTo(i){updateMetrics();if(i<0)i=0;if(i>maxIndex)i=maxIndex;index=i;render();}
-  function next(){index=(index>=maxIndex)?0:index+1;render();}
-  function prev(){index=(index<=0)?maxIndex:index-1;render();}
-  function startAuto(){stopAuto();timer=setInterval(next,AUTO);}
-  function stopAuto(){if(timer){clearInterval(timer);timer=null;}}
-
-  // 单卡时不自动播放、隐藏圆点和切换按钮
-  if(totalCards<=1){
-    prevBtn.style.display='none';
-    nextBtn.style.display='none';
-    dotsEl.style.display='none';
-    updateMetrics();render();
-    return;
-  }
-
-  carousel.addEventListener("mouseenter",stopAuto);
-  carousel.addEventListener("mouseleave",startAuto);
-  nextBtn.addEventListener("click",()=>{stopAuto();next();});
-  prevBtn.addEventListener("click",()=>{stopAuto();prev();});
-
-  let startX=0,startY=0,swiping=false;
-  viewport.addEventListener("touchstart",e=>{startX=e.touches[0].clientX;startY=e.touches[0].clientY;swiping=true;stopAuto();},{passive:true});
-  viewport.addEventListener("touchend",e=>{if(!swiping)return;const dx=e.changedTouches[0].clientX-startX;const dy=e.changedTouches[0].clientY-startY;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){if(dx<0)next();else prev();}swiping=false;startAuto();},{passive:true});
-
-  document.addEventListener("keydown",e=>{if(e.key==="ArrowRight"){stopAuto();next();}if(e.key==="ArrowLeft"){stopAuto();prev();}});
-
-  let rt=null;
-  window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{updateMetrics();buildDots();render();},150);});
-
-  updateMetrics();buildDots();render();startAuto();
-})();
 </script>
 </body>
 </html>
